@@ -1,1 +1,2 @@
-# react-circular-color
+# React Circular Color picker
+
