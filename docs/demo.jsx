@@ -49,7 +49,7 @@ class ChangingProgressbar extends React.Component {
   }
 
   render() {
-    return <CircularProgressbar {...this.props} percentage={this.props.percentages[this.state.currentPercentageIndex]} />;
+    return <CircularColor {...this.props} percentage={this.props.percentages[this.state.currentPercentageIndex]} />;
   }
 }
 ChangingProgressbar.defaultProps = {
@@ -99,7 +99,7 @@ class Demo extends React.Component {
           <Example
             description="Configure text formatting and stroke width."
           >
-            <CircularProgressbar
+            <CircularColor
               percentage={50}
               strokeWidth={5}
               textForPercentage={(percentage) => `$${percentage}`}
@@ -125,7 +125,7 @@ class Demo extends React.Component {
           example="false"
           description="Toggle whether to animate progress starting from 0% on initial mount."
         >
-          <CircularProgressbar
+          <CircularColor
             percentage={50}
             initialAnimation={true}
           />

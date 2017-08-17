@@ -87,13 +87,13 @@ class CircularColor extends React.Component {
   }
 }
 
-CircularProgressbar.propTypes = {
+CircularColor.propTypes = {
   size: PropTypes.number,
   initialColor: PropTypes.string
 };
 
-CircularProgressbar.defaultProps = {
+CircularColor.defaultProps = {
   size: 200
 };
 
-export default CircularProgressbar;
+export default CircularColor;
