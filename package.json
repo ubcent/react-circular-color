@@ -16,7 +16,7 @@
     "svg"
   ],
   "scripts": {
-    "build": "set NODE_ENV=production webpack && npm run build:demo",
+    "build": "set NODE_ENV=production webpack",
     "build:demo": "set NODE_ENV=demo webpack && cp ./src/styles.css ./docs/styles.css",
     "clean": "rimraf build",
     "lint": "eslint src test",
@@ -49,7 +49,8 @@
     "webpack-dev-server": "^2.4.5"
   },
   "dependencies": {
-    "raphael": "^2.2.7"
+    "raphael": "^2.2.7",
+    "prop-types": "^15.5.7"
   },
   "peerDependencies": {
     "react": "^0.14.0 || ^15.0.0"

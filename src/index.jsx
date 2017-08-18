@@ -1,5 +1,7 @@
 import React, { PropTypes } from 'react';
 import Raphael from 'raphael';
+import Paper from './Paper';
+import Element from './Element';
 
 class CircularColor extends React.Component {
   constructor(props) {
@@ -15,8 +17,8 @@ class CircularColor extends React.Component {
       path = ["M", size / 2, this.padding, "A", R, R, 0, 0, 1, R * Math.cos(a) + R + this.padding, R - R * Math.sin(a) + this.padding, "L", R2 * Math.cos(a) + R + this.padding, R - R2 * Math.sin(a) + this.padding, "A", R2, R2, 0, 0, 0, size / 2, this.padding + size / 20 * 2, "z"].join(),
       fi = 1.6180339887;
 
-    this.x = this.wrapper.clientTop + this.wrapper.clientHeight / 2
-    this.y = this.wrapper.clientLeft + this.wrapper.clientWidth / 2 ;
+    this.x = 0;
+    this.y = 0;
 
     console.log(this.x, this.y);
     this.rElement = Raphael(this.wrapper, size, size);
@@ -62,7 +64,6 @@ class CircularColor extends React.Component {
   setH(x, y) {
     const d = Raphael.angle(x, y, 0, 0),
       rd = Raphael.rad(d), { size } = this.props;
-      console.log(rd, d);
     this.cursorhsb.attr({ transform: "r" + [d + 90, size / 2, size / 2] });
   }
 
@@ -81,9 +82,14 @@ class CircularColor extends React.Component {
   }
 
   render() {
-    return (
+    /*return (
       <div ref={div => { this.wrapper = div; }} />
-    );
+    );*/
+    return (
+      <Paper>
+        <Element></Element>
+      </Paper>
+    )
   }
 }
 
