@@ -1,7 +1,9 @@
 import React, { PropTypes } from 'react';
 import Raphael from 'raphael';
 import Paper from './Paper';
-import Element from './Element';
+import Set from './Set';
+import Path from './Path';
+import Circle from './Circle';
 
 class CircularColor extends React.Component {
   constructor(props) {
@@ -87,7 +89,11 @@ class CircularColor extends React.Component {
     );*/
     return (
       <Paper>
-        <Element></Element>
+        <Set>
+          <Circle />
+          <Circle />
+          <Circle />
+        </Set>
       </Paper>
     )
   }

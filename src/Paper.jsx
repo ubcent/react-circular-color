@@ -4,28 +4,28 @@ import Raphael from 'raphael';
 export default class Paper extends React.Component {
   componentDidMount() {
     const { size } = this.props;
-    this._paper = Raphael(this.wrapper, size, size);
+    this.paperElement = Raphael(this.wrapper, size, size);
   }
 
   componentDidUpdate() {
     const { size } = this.props;
-    this._paper.setSize(size, size);
+    this.paperElement.setSize(size, size);
   }
 
   componentWillUnmount() {
-    this._paper.remove();
+    this.paperElement.remove();
   }
 
   get paper() {
-    return this._paper || null;
+    return this.paperElement || null;
   }
 
   render() {
     return (
-      <div ref={div => { this.wrapper = div; }}>
+      <div ref={(div) => { this.wrapper = div; }}>
         {this.paper && React.Children.map(this.props.children,
           child => React.cloneElement(child, {
-            paper: this.paper
+            paper: this.paper,
           })
         )}
       </div>
@@ -34,9 +34,10 @@ export default class Paper extends React.Component {
 }
 
 Paper.propTypes = {
-  size: PropTypes.number
-}
+  size: PropTypes.number,
+  children: PropTypes.children.isRequired,
+};
 
 Paper.defaultProps = {
-  size: 200
-}
+  size: 200,
+};
