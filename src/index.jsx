@@ -1,5 +1,6 @@
 import React, { PureComponent, PropTypes } from 'react';
 import Sector from './sector';
+import hsvToRgb from './hsvToRgb';
 
 class CircularColor extends PureComponent {
   constructor(props) {
@@ -11,7 +12,8 @@ class CircularColor extends PureComponent {
     this.state = {
       touched: false,
       cx: Math.floor((size / 2) + (Math.floor(size / 2 * 0.6) + handlerSize) * Math.cos(Math.PI)),
-      cy: Math.floor((size / 2) - (Math.floor(size / 2 * 0.6) + handlerSize) * Math.sin(Math.PI))
+      cy: Math.floor((size / 2) - (Math.floor(size / 2 * 0.6) + handlerSize) * Math.sin(Math.PI)),
+      color: hsvToRgb(Math.abs(Math.PI) * 180 / Math.PI)
     }
   }
 
@@ -61,25 +63,35 @@ class CircularColor extends PureComponent {
 
       this.setState({
         cx: Math.floor((size / 2) + (Math.floor(size / 2 * 0.6) + handlerSize) * Math.cos(angle)),
-        cy: Math.floor((size / 2) - (Math.floor(size / 2 * 0.6) + handlerSize) * Math.sin(angle))
+        cy: Math.floor((size / 2) - (Math.floor(size / 2 * 0.6) + handlerSize) * Math.sin(angle)),
+        color: hsvToRgb(Math.abs(angle) * 180 / Math.PI)
       })
     }
   }
 
   render() {
     const { size } = this.props;
-    const { cx, cy } = this.state;
+    const { cx, cy, color } = this.state;
     const handlerSize = Math.floor(size / 2 * 0.3 / 2);
 
     return (
-      <svg width={size} height={size} onMouseMove={this.mouseMove}>
+      <svg width={size} height={size} onMouseMove={this.mouseMove} onMouseUp={this.mouseUp}>
         {this.renderSectors()}
+        <rect 
+          x={size / 2 - 15}
+          y={size / 2 - 15}
+          height="30"
+          width="30"
+          fill={color}
+        />
         <circle 
-          onMouseDown={this.mouseDown} 
-          onMouseUp={this.mouseUp}
+          onMouseDown={this.mouseDown}
           cx={cx} 
           cy={cy} 
-          r={handlerSize} 
+          r={handlerSize}
+          fill="transparent"
+          stroke="#363636"
+          strokeWidth="5"
         />
       </svg>
     )
