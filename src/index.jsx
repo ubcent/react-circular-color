@@ -52,7 +52,7 @@ class CircularColor extends PureComponent {
   }
 
   mouseMove = (event) => {
-    const { size } = this.props;
+    const { size, onChange } = this.props;
     const { touched } = this.state;
     
     if(touched) {
@@ -67,25 +67,29 @@ class CircularColor extends PureComponent {
         cx: Math.floor((size / 2) + (Math.floor(size / 2 * 0.6) + handlerSize) * Math.cos(angle)),
         cy: Math.floor((size / 2) - (Math.floor(size / 2 * 0.6) + handlerSize) * Math.sin(angle)),
         color: hsvToRgb(Math.abs(angle) * 180 / Math.PI)
-      })
+      });
+
+      if(typeof onChange === 'function') {
+        onChange(hsvToRgb(Math.abs(angle) * 180 / Math.PI));
+      }
     }
   }
 
   render() {
-    const { size, className } = this.props;
+    const { size, className, centerRect } = this.props;
     const { cx, cy, color } = this.state;
     const handlerSize = Math.floor(size / 2 * 0.3 / 2);
 
     return (
       <svg className={className} width={size} height={size} onMouseMove={this.mouseMove} onMouseUp={this.mouseUp}>
         {this.renderSectors()}
-        <rect 
+        {centerRect ? <rect 
           x={size / 2 - 15}
           y={size / 2 - 15}
           height="30"
           width="30"
           fill={color}
-        />
+        />: ''}
         <circle 
           onMouseDown={this.mouseDown}
           cx={cx} 
