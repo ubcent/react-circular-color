@@ -1,4 +1,5 @@
-import React, { PureComponent, PropTypes } from 'react';
+import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import Sector from './sector';
 import hsvToRgb from './hsvToRgb';
 
@@ -27,6 +28,7 @@ class CircularColor extends PureComponent {
       const endAngle = (idx + 1 === 360 ? 0 : idx + 1) * Math.PI / 180;
       return (
         <Sector 
+          key={idx}
           size={size}
           startAngle={-startAngle} 
           endAngle={-endAngle} 
@@ -70,12 +72,12 @@ class CircularColor extends PureComponent {
   }
 
   render() {
-    const { size } = this.props;
+    const { size, className } = this.props;
     const { cx, cy, color } = this.state;
     const handlerSize = Math.floor(size / 2 * 0.3 / 2);
 
     return (
-      <svg width={size} height={size} onMouseMove={this.mouseMove} onMouseUp={this.mouseUp}>
+      <svg className={className} width={size} height={size} onMouseMove={this.mouseMove} onMouseUp={this.mouseUp}>
         {this.renderSectors()}
         <rect 
           x={size / 2 - 15}
@@ -99,11 +101,15 @@ class CircularColor extends PureComponent {
 }
 
 CircularColor.propTypes = {
-  size: PropTypes.number
+  size: PropTypes.number,
+  className: PropTypes.string,
+  onChange: PropTypes.func,
+  centerRect: PropTypes.bool
 };
 
 CircularColor.defaultProps = {
-  size: 200
+  size: 200,
+  centerRect: false
 };
 
 export default CircularColor;

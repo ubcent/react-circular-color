@@ -1,2 +1,43 @@
 # React Circular Color picker
 
+# Installation
+
+```bash
+npm install react-circular-color
+```
+
+# Usage
+
+```javascript
+import React, { Component } from 'react';
+
+import CircularColor from 'react-circular-color';
+
+
+class ExampleComponent extends Component {
+  render() {
+    return (
+      <CircularColor size={200} />
+    );
+  }
+}
+```
+
+# Props
+
+| Name | Description |
+| ---- | ----------- |
+| `size` | Numeric size of the element in pixels. Default: `200` |
+| `className` | Classes to apply to the svg element |
+| `centerRect` | Whether to display central rectangle with picked color. Default: `false`. |
+| `onChange` | Fired when the color is changing |
+
+# Development
+
+To run demo locally on localhost:8080:
+
+```bash
+npm install
+npm start
+```
+

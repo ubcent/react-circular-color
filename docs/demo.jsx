@@ -31,31 +31,6 @@ const Example = ({ description, children }) => (
   </div>
 );
 
-class ChangingProgressbar extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      currentPercentageIndex: 0,
-    };
-  }
-
-  componentDidMount() {
-    setInterval(() => {
-      this.setState({
-        currentPercentageIndex: (this.state.currentPercentageIndex + 1) % this.props.percentages.length
-      });
-    }, this.props.interval);
-  }
-
-  render() {
-    return <CircularColor {...this.props} percentage={this.props.percentages[this.state.currentPercentageIndex]} />;
-  }
-}
-ChangingProgressbar.defaultProps = {
-  interval: 1000,
-}
-
 class Demo extends React.Component {
   render() {
     return (
@@ -71,8 +46,8 @@ class Demo extends React.Component {
 
         <div className="row mb-3">
           <div className="col-xs-6 offset-xs-3 col-md-2 offset-md-5">
-            <ChangingProgressbar
-              percentages={[0, 20, 40, 60, 80, 100]}
+            <CircularColor
+              size={200}
             />
           </div>
         </div>
@@ -88,11 +63,8 @@ class Demo extends React.Component {
           <Example
             description="Configure colofdfrfdfd/styling based on percentage using plain old CSS classes."
           >
-            <ChangingProgressbar
-              percentages={[75, 100]}
-              classForPercentage={(percentage) => {
-                return percentage === 100 ? 'complete' : 'incomplete';
-              }}
+            <CircularColor
+              size={200}
             />
           </Example>
 
@@ -111,9 +83,9 @@ class Demo extends React.Component {
         <h2 className="text-xs-center my-3">Props</h2>
 
         <Config
-          name="percentage"
-          example="44"
-          description="Percentage to display."
+          name="size"
+          example="200"
+          description="Size of the wheel in pixels"
         />
         <Config
           name="strokeWidth"

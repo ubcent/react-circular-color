@@ -7,14 +7,14 @@ const demoDir = 'docs';
 const webpackConfig = {
   context: __dirname,
   entry: {
-    'react-circular-progressbar': [
+    'react-circular-color': [
       path.resolve(__dirname, 'src', 'index.jsx')
     ]
   },
   output: {
     path: path.resolve(__dirname),
     filename: 'index.js',
-    library: 'CircularProgressbar',
+    library: 'CircularColor',
     libraryTarget: 'umd'
   },
   resolve: {
@@ -43,13 +43,13 @@ const webpackConfig = {
 if (nodeEnv === 'development') {
   webpackConfig.devtool = 'source-map';
   webpackConfig.devServer = { contentBase: path.resolve(__dirname, demoDir) };
-  webpackConfig.entry['react-circular-progressbar'].unshift('webpack-dev-server/client?http://0.0.0.0:8080/');
-  webpackConfig.entry['react-circular-progressbar'].push(path.resolve(__dirname, demoDir, 'demo.jsx'));
+  webpackConfig.entry['react-circular-color'].unshift('webpack-dev-server/client?http://0.0.0.0:8080/');
+  webpackConfig.entry['react-circular-color'].push(path.resolve(__dirname, demoDir, 'demo.jsx'));
   webpackConfig.output.publicPath = '/';
 }
 
 if (nodeEnv === 'demo') {
-  webpackConfig.entry['react-circular-progressbar'].push(path.resolve(__dirname, demoDir, 'demo.jsx'));
+  webpackConfig.entry['react-circular-color'].push(path.resolve(__dirname, demoDir, 'demo.jsx'));
   webpackConfig.output.path = path.resolve(__dirname, demoDir);
 }
 
