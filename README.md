@@ -1,5 +1,9 @@
 # React Circular Color picker
 
+A circular color picker component also named color-wheel performed with react and pure svg.
+
+![circular color picker](/assets/wheel.png)
+
 # Installation
 
 ```bash
