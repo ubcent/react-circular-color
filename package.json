@@ -1,6 +1,6 @@
 {
   "name": "react-circular-color",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A circular color picker component also named color-wheel",
   "author": "Dmitry Bondarchuk <dvbondarchuk@gmail.com>",
   "main": "./build/index.js",
@@ -16,7 +16,7 @@
     "svg"
   ],
   "scripts": {
-    "build": "set NODE_ENV=production webpack",
+    "build": "NODE_ENV=production webpack",
     "build:demo": "set NODE_ENV=demo webpack && cp ./src/styles.css ./docs/styles.css",
     "clean": "rimraf build",
     "lint": "eslint src test",
