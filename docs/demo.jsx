@@ -32,6 +32,18 @@ const Example = ({ description, children }) => (
 );
 
 class Demo extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      color: null
+    }
+  }
+
+  onChangeColor = (color) => {
+    this.setState({color});
+  }
+
   render() {
     return (
       <div className="container">
@@ -61,20 +73,20 @@ class Demo extends React.Component {
         <hr />
         <div className="row mt-3">
           <Example
-            description="Configure colofdfrfdfd/styling based on percentage using plain old CSS classes."
+            description="Configure catching of a changing color"
           >
             <CircularColor
               size={200}
+              onChange={this.onChangeColor}
             />
+            {this.state.color ? <h4 style={{ color: this.state.color }}>Color: {this.state.color}</h4> : ''}
           </Example>
 
           <Example
-            description="Configure text formatting and stroke width."
+            description="Configure central rectangle visibility."
           >
             <CircularColor
-              percentage={50}
-              strokeWidth={5}
-              textForPercentage={(percentage) => `$${percentage}`}
+              centerRect
             />
           </Example>
         </div>
@@ -88,29 +100,18 @@ class Demo extends React.Component {
           description="Size of the wheel in pixels"
         />
         <Config
-          name="strokeWidth"
-          example="10"
-          description="Width of circular line"
+          name="className"
+          example="wheel"
+          description="Classes to apply to the svg element"
         />
         <Config
-          name="initialAnimation"
+          name="centerRect"
           example="false"
-          description="Toggle whether to animate progress starting from 0% on initial mount."
-        >
-          <CircularColor
-            percentage={50}
-            initialAnimation={true}
-          />
-        </Config>
-        <Config
-          name="classForPercentage"
-          example="(pct) => pct < 100 ? 'incomplete' : 'complete'"
-          description="Function which can set an additional class to apply to top-level element, which can be used for coloring/styling percentage ranges differently."
+          description="Whether to display central rectangle with picked color."
         />
         <Config
-          name="textForPercentage"
-          example="(pct) => `${pct}%`"
-          description="Function which sets text formatting given a percentage."
+          name="onChange"
+          description="Fired when the color is changing."
         />
 
         <hr />
