@@ -3,7 +3,7 @@ import hsvToRgb from './hsvToRgb';
 
 class Sector extends PureComponent {
   pointOnCircle(radius, angle) {
-    const { size = 200 } = this.props;
+    const { size } = this.props;
     const center = {
       x: size / 2,
       y: size / 2
@@ -17,10 +17,10 @@ class Sector extends PureComponent {
   render() {
     const { startAngle, endAngle, outerRadius, innerRadius } = this.props;
     
-    const p1 = this.pointOnCircle(90, startAngle);
-    const p2 = this.pointOnCircle(90, endAngle);
-    const p3 = this.pointOnCircle(60, endAngle);
-    const p4 = this.pointOnCircle(60, startAngle);
+    const p1 = this.pointOnCircle(outerRadius, startAngle);
+    const p2 = this.pointOnCircle(outerRadius, endAngle);
+    const p3 = this.pointOnCircle(innerRadius, endAngle);
+    const p4 = this.pointOnCircle(innerRadius, startAngle);
 
     const longArcFlag = +(endAngle < startAngle ? startAngle - endAngle > Math.PI : startAngle - endAngle > -Math.PI);
     const path = `M ${p1.x},${p1.y}
