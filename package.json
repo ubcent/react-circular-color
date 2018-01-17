@@ -49,7 +49,6 @@
     "webpack-dev-server": "^2.4.5"
   },
   "dependencies": {
-    "raphael": "^2.2.7",
     "prop-types": "^15.5.7"
   },
   "peerDependencies": {
