@@ -1,5 +1,7 @@
 # React Circular Color picker
 
+[![npm](https://img.shields.io/npm/dt/express.svg)](https://www.npmjs.com/package/react-circular-color)
+
 A circular color picker component also named color-wheel performed with react and pure svg.
 
 ![circular color picker](/assets/wheel.png)
