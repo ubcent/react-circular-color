@@ -20,9 +20,13 @@ import CircularColor from 'react-circular-color';
 
 
 class ExampleComponent extends Component {
+  handleColorChange(color) {
+    console.log(color); // it will be string with a color hash e.g. #1c1c1c
+  }
+
   render() {
     return (
-      <CircularColor size={200} />
+      <CircularColor size={200} onChange={this.handleColorChange} />
     );
   }
 }
