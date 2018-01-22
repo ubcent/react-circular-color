@@ -19,13 +19,13 @@ class CircularColor extends PureComponent {
   }
 
   renderSectors() {
-    const { size } = this.props;
+    const { size, numberOfSectors } = this.props;
     const outerRadius = Math.floor(size / 2 * 0.9);
     const innerRadius = Math.floor(size / 2 * 0.6);
 
-    return Array(360).fill(0).map((sector, idx) => {
-      const startAngle = idx * Math.PI / 180;
-      const endAngle = (idx + 1 === 360 ? 0 : idx + 1) * Math.PI / 180;
+    return Array(numberOfSectors).fill(0).map((sector, idx) => {
+      const startAngle = (idx * Math.PI / 180) * 360 / numberOfSectors;
+      const endAngle = ((idx + 1 === numberOfSectors ? 0 : idx + 1) * Math.PI / 180) * 360 / numberOfSectors;
       return (
         <Sector 
           key={idx}
@@ -106,6 +106,7 @@ class CircularColor extends PureComponent {
 
 CircularColor.propTypes = {
   size: PropTypes.number,
+  numberOfSectors: PropTypes.number,
   className: PropTypes.string,
   onChange: PropTypes.func,
   centerRect: PropTypes.bool
@@ -113,6 +114,7 @@ CircularColor.propTypes = {
 
 CircularColor.defaultProps = {
   size: 200,
+  numberOfSectors: 360,
   centerRect: false
 };
 
