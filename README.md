@@ -3,7 +3,7 @@
 
 A circular color picker component also named color-wheel performed with react and pure svg.
 
-![circular color picker](/assets/wheel.png)
+![circular color picker](/assets/wheel.png) ![circular color picker](/assets/wheel32.png)
 
 # Installation
 
@@ -37,6 +37,7 @@ class ExampleComponent extends Component {
 | Name | Description |
 | ---- | ----------- |
 | `size` | Numeric size of the element in pixels. Default: `200` |
+| `numberOfSectors` | Number of wheel's sectors. Default: `360` |
 | `className` | Classes to apply to the svg element |
 | `centerRect` | Whether to display central rectangle with picked color. Default: `false`. |
 | `onChange` | Fired when the color is changing |
