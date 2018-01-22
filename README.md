@@ -3,7 +3,7 @@
 
 A circular color picker component also named color-wheel performed with react and pure svg.
 
-![circular color picker](/assets/wheel.png) ![circular color picker](/assets/wheel32.png)
+![circular color picker](/assets/wheel.png) ![circular color picker](/assets/wheel32.PNG)
 
 # Installation
 
