@@ -35,6 +35,7 @@
     "babel-register": "^6.8.0",
     "chai": "^3.5.0",
     "enzyme": "^2.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
     "eslint": "^3.11.0",
     "eslint-config-airbnb": "^14.1.0",
     "eslint-plugin-import": "^2.2.0",
