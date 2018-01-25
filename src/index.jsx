@@ -18,14 +18,29 @@ class CircularColor extends PureComponent {
     }
   }
 
+  componentDidMount() {
+    window.addEventListener('touchmove', this.preventScrolling, { passive: false });
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('touchmove', this.preventScrolling);
+  }
+
+  preventScrolling = (event) => {
+    const { touched } = this.state;
+    if(touched) {
+      event.preventDefault();
+    }
+  }
+
   renderSectors() {
-    const { size } = this.props;
+    const { size, numberOfSectors } = this.props;
     const outerRadius = Math.floor(size / 2 * 0.9);
     const innerRadius = Math.floor(size / 2 * 0.6);
 
-    return Array(360).fill(0).map((sector, idx) => {
-      const startAngle = idx * Math.PI / 180;
-      const endAngle = (idx + 1 === 360 ? 0 : idx + 1) * Math.PI / 180;
+    return Array(numberOfSectors).fill(0).map((sector, idx) => {
+      const startAngle = (idx * Math.PI / 180) * 360 / numberOfSectors;
+      const endAngle = ((idx + 1 === numberOfSectors ? 0 : idx + 1) * Math.PI / 180) * 360 / numberOfSectors;
       return (
         <Sector 
           key={idx}
@@ -39,28 +54,30 @@ class CircularColor extends PureComponent {
     });
   }
 
-  mouseDown = (event) => {
+  handleDown = (event) => {
     this.setState({
       touched: true
     });
   }
 
-  mouseUp = (event) => {
+  handleUp = (event) => {
     this.setState({
       touched: false
     });
   }
 
-  mouseMove = (event) => {
+  handleMove = (event) => {
     const { size, onChange } = this.props;
     const { touched } = this.state;
     
     if(touched) {
       const { x: xBlock, y: yBlock } = event.currentTarget.getBoundingClientRect();
-      const x = event.clientX - xBlock - size / 2;
-      const y = event.clientY - yBlock - size / 2; 
+
+      const evt = event.type === 'touchmove' ? event.touches[0] || event.changedTouches[0] : event;
+      const x = evt.clientX - xBlock - size / 2;
+      const y = evt.clientY - yBlock - size / 2; 
+
       const angle = -Math.atan2(y, x);
-      
       const handlerSize = Math.floor(size / 2 * 0.3 / 2);
 
       this.setState({
@@ -81,7 +98,15 @@ class CircularColor extends PureComponent {
     const handlerSize = Math.floor(size / 2 * 0.3 / 2);
 
     return (
-      <svg className={className} width={size} height={size} onMouseMove={this.mouseMove} onMouseUp={this.mouseUp}>
+      <svg 
+        className={className}
+        width={size}
+        height={size}
+        onMouseMove={this.handleMove}
+        onMouseUp={this.handleUp}
+        onTouchEnd={this.handleUp}
+        onTouchMove={this.handleMove}
+      >
         {this.renderSectors()}
         {centerRect ? <rect 
           x={size / 2 - 15}
@@ -91,7 +116,8 @@ class CircularColor extends PureComponent {
           fill={color}
         />: ''}
         <circle 
-          onMouseDown={this.mouseDown}
+          onMouseDown={this.handleDown}
+          onTouchStart={this.handleDown}
           cx={cx} 
           cy={cy} 
           r={handlerSize}
@@ -106,6 +132,7 @@ class CircularColor extends PureComponent {
 
 CircularColor.propTypes = {
   size: PropTypes.number,
+  numberOfSectors: PropTypes.number,
   className: PropTypes.string,
   onChange: PropTypes.func,
   centerRect: PropTypes.bool
@@ -113,6 +140,7 @@ CircularColor.propTypes = {
 
 CircularColor.defaultProps = {
   size: 200,
+  numberOfSectors: 360,
   centerRect: false
 };
 

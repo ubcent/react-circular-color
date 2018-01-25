@@ -83,10 +83,11 @@ class Demo extends React.Component {
           </Example>
 
           <Example
-            description="Configure central rectangle visibility."
+            description="Configure central rectangle visibility and number of the sectors."
           >
             <CircularColor
               centerRect
+              numberOfSectors={1000}
             />
           </Example>
         </div>

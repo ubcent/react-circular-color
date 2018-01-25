@@ -42,7 +42,10 @@ const webpackConfig = {
 
 if (nodeEnv === 'development') {
   webpackConfig.devtool = 'source-map';
-  webpackConfig.devServer = { contentBase: path.resolve(__dirname, demoDir) };
+  webpackConfig.devServer = {
+    host: '0.0.0.0',
+    contentBase: path.resolve(__dirname, demoDir) 
+  };
   webpackConfig.entry['react-circular-color'].unshift('webpack-dev-server/client?http://0.0.0.0:8080/');
   webpackConfig.entry['react-circular-color'].push(path.resolve(__dirname, demoDir, 'demo.jsx'));
   webpackConfig.output.publicPath = '/';
