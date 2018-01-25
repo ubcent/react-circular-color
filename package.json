@@ -1,6 +1,6 @@
 {
   "name": "react-circular-color",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "A circular color picker component also named color-wheel",
   "author": "Dmitry Bondarchuk <dvbondarchuk@gmail.com>",
   "main": "./build/index.js",

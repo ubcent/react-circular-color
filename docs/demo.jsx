@@ -87,7 +87,7 @@ class Demo extends React.Component {
           >
             <CircularColor
               centerRect
-              numberOfSectors={32}
+              numberOfSectors={1000}
             />
           </Example>
         </div>
