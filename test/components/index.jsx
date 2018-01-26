@@ -30,10 +30,27 @@ describe('CircularProgressbar should', () => {
     );
     expect(wrapper.find('rect')).to.have.length(1);
   });
-  it('fire an event', () => {
+  it('fire onChange', (done) => {
+    const component = new CircularColor({
+      size: 36,
+      onChange: () => {
+        done();
+      } });
+    component.state.touched = true;
+    component.setState = () => true;
+    component.handleMove({
+      type: 'mousemove',
+      clientX: 10,
+      clientY: 10,
+      currentTarget: {
+        getBoundingClientRect: () => ({ x: 1, y: 1 }),
+      },
+    });
+  });
+  it('render 48 sectors correctly', () => {
     const wrapper = shallow(
-      <CircularColor onChange={() => { console.log('Changed'); }} />
+      <CircularColor numberOfSectors={48} />
     );
-    
+    expect(wrapper.find('Sector')).to.have.length(48);
   });
 });
