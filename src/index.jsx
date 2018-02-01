@@ -9,11 +9,19 @@ class CircularColor extends PureComponent {
 
     const { size } = props;
     const handlerSize = Math.floor(size / 2 * 0.3 / 2);
+    const innerRadius = Math.floor(size / 2 * 0.6);
+    const outerRadius = Math.floor(size / 2 * 0.9);
+
+    this.statics = {
+      handlerSize,
+      innerRadius,
+      outerRadius
+    };
 
     this.state = {
       touched: false,
-      cx: Math.floor((size / 2) + (Math.floor(size / 2 * 0.6) + handlerSize) * Math.cos(Math.PI)),
-      cy: Math.floor((size / 2) - (Math.floor(size / 2 * 0.6) + handlerSize) * Math.sin(Math.PI)),
+      cx: Math.floor((size / 2) + (innerRadius + handlerSize) * Math.cos(Math.PI)),
+      cy: Math.floor((size / 2) - (innerRadius + handlerSize) * Math.sin(Math.PI)),
       color: hsvToRgb(Math.abs(Math.PI) * 180 / Math.PI)
     }
   }
@@ -35,8 +43,7 @@ class CircularColor extends PureComponent {
 
   renderSectors() {
     const { size, numberOfSectors } = this.props;
-    const outerRadius = Math.floor(size / 2 * 0.9);
-    const innerRadius = Math.floor(size / 2 * 0.6);
+    const { innerRadius, outerRadius } = this.statics;
 
     return Array(numberOfSectors).fill(0).map((sector, idx) => {
       const startAngle = (idx * Math.PI / 180) * 360 / numberOfSectors;
@@ -54,6 +61,29 @@ class CircularColor extends PureComponent {
     });
   }
 
+  handleClick = (event) => {
+    const { size } = this.props;
+    const { innerRadius, outerRadius } = this.statics;
+
+    const { x: xBlock, y: yBlock } = event.currentTarget.getBoundingClientRect();
+
+    const x = event.clientX - xBlock - size / 2;
+    const y = event.clientY - yBlock - size / 2;
+
+    const angle = -Math.atan2(y, x);
+
+    const outX = Math.abs(Math.floor((outerRadius) * Math.cos(angle)));
+    const outY = Math.abs(Math.floor((outerRadius) * Math.sin(angle)));
+
+    const inX = Math.abs(Math.floor((innerRadius) * Math.cos(angle)));
+    const inY = Math.abs(Math.floor((innerRadius) * Math.sin(angle)));
+
+    if (Math.abs(x) >= inX && Math.abs(x) <= outX
+        || Math.abs(y) >= inY && Math.abs(y) <= outY ) {
+      this.changeStates(angle);
+    }
+  }
+
   handleDown = (event) => {
     this.setState({
       touched: true
@@ -67,7 +97,7 @@ class CircularColor extends PureComponent {
   }
 
   handleMove = (event) => {
-    const { size, onChange } = this.props;
+    const { size } = this.props;
     const { touched } = this.state;
     
     if(touched) {
@@ -78,24 +108,30 @@ class CircularColor extends PureComponent {
       const y = evt.clientY - yBlock - size / 2; 
 
       const angle = -Math.atan2(y, x);
-      const handlerSize = Math.floor(size / 2 * 0.3 / 2);
 
-      this.setState({
-        cx: Math.floor((size / 2) + (Math.floor(size / 2 * 0.6) + handlerSize) * Math.cos(angle)),
-        cy: Math.floor((size / 2) - (Math.floor(size / 2 * 0.6) + handlerSize) * Math.sin(angle)),
-        color: hsvToRgb(Math.abs(angle) * 180 / Math.PI)
-      });
+      this.changeStates(angle);
+    }
+  }
 
-      if(typeof onChange === 'function') {
-        onChange(hsvToRgb(Math.abs(angle) * 180 / Math.PI));
-      }
+  changeStates = (angle) => {
+    const { size, onChange } = this.props;
+    const { innerRadius, handlerSize } = this.statics;
+
+    this.setState({
+      cx: Math.floor((size / 2) + (innerRadius + handlerSize) * Math.cos(angle)),
+      cy: Math.floor((size / 2) - (innerRadius + handlerSize) * Math.sin(angle)),
+      color: hsvToRgb(Math.abs(angle) * 180 / Math.PI)
+    });
+
+    if(typeof onChange === 'function') {
+      onChange(hsvToRgb(Math.abs(angle) * 180 / Math.PI))
     }
   }
 
   render() {
     const { size, className, centerRect } = this.props;
     const { cx, cy, color } = this.state;
-    const handlerSize = Math.floor(size / 2 * 0.3 / 2);
+    const { handlerSize } = this.statics;
 
     return (
       <svg 
@@ -106,6 +142,7 @@ class CircularColor extends PureComponent {
         onMouseUp={this.handleUp}
         onTouchEnd={this.handleUp}
         onTouchMove={this.handleMove}
+        onClick={this.handleClick}
       >
         {this.renderSectors()}
         {centerRect ? <rect 
