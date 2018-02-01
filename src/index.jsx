@@ -11,11 +11,13 @@ class CircularColor extends PureComponent {
     const handlerSize = Math.floor(size / 2 * 0.3 / 2);
     const innerRadius = Math.floor(size / 2 * 0.6);
     const outerRadius = Math.floor(size / 2 * 0.9);
+    const epsilon = 4;
 
     this.statics = {
       handlerSize,
       innerRadius,
-      outerRadius
+      outerRadius,
+      epsilon
     };
 
     this.state = {
@@ -63,7 +65,7 @@ class CircularColor extends PureComponent {
 
   handleClick = (event) => {
     const { size } = this.props;
-    const { innerRadius, outerRadius } = this.statics;
+    const { innerRadius, outerRadius, epsilon } = this.statics;
 
     const { x: xBlock, y: yBlock } = event.currentTarget.getBoundingClientRect();
 
@@ -78,9 +80,9 @@ class CircularColor extends PureComponent {
     const inX = Math.abs(Math.floor((innerRadius) * Math.cos(angle)));
     const inY = Math.abs(Math.floor((innerRadius) * Math.sin(angle)));
 
-    if (Math.abs(x) >= inX && Math.abs(x) <= outX
-        || Math.abs(y) >= inY && Math.abs(y) <= outY ) {
-      this.changeStates(angle);
+    if (Math.abs(x) >= (inX - epsilon) && Math.abs(x) <= (outX + epsilon)
+        || Math.abs(y) >= (inY - epsilon) && Math.abs(y) <= (outY + epsilon) ) {
+      this.updateHandlerPosition(angle);
     }
   }
 
@@ -109,11 +111,11 @@ class CircularColor extends PureComponent {
 
       const angle = -Math.atan2(y, x);
 
-      this.changeStates(angle);
+      this.updateHandlerPosition(angle);
     }
   }
 
-  changeStates = (angle) => {
+  updateHandlerPosition = (angle) => {
     const { size, onChange } = this.props;
     const { innerRadius, handlerSize } = this.statics;
 
