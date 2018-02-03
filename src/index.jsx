@@ -4,6 +4,8 @@ import Sector from './sector';
 import hsvToRgb from './hsvToRgb';
 
 class CircularColor extends PureComponent {
+  static epsilon = 4;
+
   constructor(props) {
     super(props);
 
@@ -11,13 +13,11 @@ class CircularColor extends PureComponent {
     const handlerSize = Math.floor(size / 2 * 0.3 / 2);
     const innerRadius = Math.floor(size / 2 * 0.6);
     const outerRadius = Math.floor(size / 2 * 0.9);
-    const epsilon = 4;
 
     this.statics = {
       handlerSize,
       innerRadius,
-      outerRadius,
-      epsilon
+      outerRadius
     };
 
     this.state = {
@@ -65,7 +65,7 @@ class CircularColor extends PureComponent {
 
   handleClick = (event) => {
     const { size } = this.props;
-    const { innerRadius, outerRadius, epsilon } = this.statics;
+    const { innerRadius, outerRadius } = this.statics;
 
     const { x: xBlock, y: yBlock } = event.currentTarget.getBoundingClientRect();
 
@@ -80,8 +80,10 @@ class CircularColor extends PureComponent {
     const inX = Math.abs(Math.floor((innerRadius) * Math.cos(angle)));
     const inY = Math.abs(Math.floor((innerRadius) * Math.sin(angle)));
 
-    if (Math.abs(x) >= (inX - epsilon) && Math.abs(x) <= (outX + epsilon)
-        || Math.abs(y) >= (inY - epsilon) && Math.abs(y) <= (outY + epsilon) ) {
+    if (Math.abs(x) >= (inX - CircularColor.epsilon)
+        && Math.abs(x) <= (outX + CircularColor.epsilon)
+        || Math.abs(y) >= (inY - CircularColor.epsilon)
+        && Math.abs(y) <= (outY + CircularColor.epsilon)) {
       this.updateHandlerPosition(angle);
     }
   }
