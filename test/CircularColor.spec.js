@@ -2,12 +2,21 @@ import React from 'react';
 import { assert, expect } from 'chai';
 import Enzyme, { shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-
-import CircularColor from '../../src';
+import CircularColor from '../src';
 
 Enzyme.configure({ adapter: new Adapter() });
+const jsdom = require('jsdom').jsdom;
 
 describe('CircularProgressbar should', () => {
+  before(() => {
+    global.document = jsdom('<!DOCTYPE html><html><head></head><body></body></html>');
+    global.window = document.parentWindow;
+    global.navigator = { userAgent: 'node.js' };
+    global.window = {
+      addEventListener: () => true,
+      removeEventListener: () => true,
+    };
+  });
   it('render path correctly', () => {
     assert.doesNotThrow(() => <CircularColor />);
   });
