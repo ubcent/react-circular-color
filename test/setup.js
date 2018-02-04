@@ -3,6 +3,7 @@
 // https://github.com/airbnb/enzyme/blob/master/docs/guides/jsdom.md#using-enzyme-with-jsdom
 
 const jsdom = require('jsdom').jsdom;
+require('./components/CircularColor.spec');
 
 const exposedProperties = ['window', 'navigator', 'document'];
 

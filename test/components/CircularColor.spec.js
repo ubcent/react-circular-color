@@ -8,7 +8,6 @@ import CircularColor from '../../src';
 Enzyme.configure({ adapter: new Adapter() });
 
 describe('CircularProgressbar should', () => {
-
   it('render path correctly', () => {
     assert.doesNotThrow(() => <CircularColor />);
   });
