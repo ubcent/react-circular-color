@@ -8,6 +8,11 @@
       "name": "Timur Umarov",
       "email": "timur@umar0v.name",
       "url": "http://umar0v.name"
+    },
+    {
+      "name": "Paul Kotov",
+      "email": "paulkotov1@gmail.com",
+      "url": "http://paulkotov.com"
     }
   ],
   "main": "./build/index.js",
