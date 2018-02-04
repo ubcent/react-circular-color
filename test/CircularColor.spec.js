@@ -10,7 +10,6 @@ const jsdom = require('jsdom').jsdom;
 describe('CircularProgressbar should', () => {
   before(() => {
     global.document = jsdom('<!DOCTYPE html><html><head></head><body></body></html>');
-    global.window = document.parentWindow;
     global.navigator = { userAgent: 'node.js' };
     global.window = {
       addEventListener: () => true,
