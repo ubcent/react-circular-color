@@ -121,14 +121,16 @@ class CircularColor extends PureComponent {
     const { size, onChange } = this.props;
     const { innerRadius, handlerSize } = this.statics;
 
+    const color = angle <= 0 ? -angle * 180 / Math.PI : (2 * Math.PI - angle) * 180 / Math.PI;
+
     this.setState({
       cx: Math.floor((size / 2) + (innerRadius + handlerSize) * Math.cos(angle)),
       cy: Math.floor((size / 2) - (innerRadius + handlerSize) * Math.sin(angle)),
-      color: hsvToRgb(Math.abs(angle) * 180 / Math.PI)
+      color: hsvToRgb(color)
     });
 
     if(typeof onChange === 'function') {
-      onChange(hsvToRgb(Math.abs(angle) * 180 / Math.PI))
+      onChange(hsvToRgb(color))
     }
   }
 
