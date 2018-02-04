@@ -121,9 +121,7 @@ class CircularColor extends PureComponent {
     const { size, onChange } = this.props;
     const { innerRadius, handlerSize } = this.statics;
 
-    let color;
-    if (angle <= 0) color = -angle * 180 / Math.PI;
-    else color = (2 * Math.PI - angle) * 180 / Math.PI;
+    const color = angle <= 0 ? -angle * 180 / Math.PI : (2 * Math.PI - angle) * 180 / Math.PI;
 
     this.setState({
       cx: Math.floor((size / 2) + (innerRadius + handlerSize) * Math.cos(angle)),
