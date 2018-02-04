@@ -55,12 +55,6 @@ npm start
 
 To run test type:
 
+```bash
 npm run test
-
-It will pass you through these tests:
-1)It should render path correctly;
-2)It should check if class accepted;
-3)It should render as an svg;
-4)It should render square;
-5)It should fire onChange;
-6)It should render 48 sectors correctly;
+```
