@@ -8,6 +8,11 @@
       "name": "Timur Umarov",
       "email": "timur@umar0v.name",
       "url": "http://umar0v.name"
+    },
+    {
+      "name": "Paul Kotov",
+      "email": "paulkotov1@gmail.com",
+      "url": "http://paulkotov.com"
     }
   ],
   "main": "./build/index.js",
@@ -28,7 +33,7 @@
     "clean": "rimraf build",
     "lint": "eslint src test",
     "prepublish": "npm run clean && npm run build",
-    "test": "mocha --compilers js:babel-register --recursive --require ./test/setup.js",
+    "test": "mocha --compilers js:babel-register --recursive",
     "test:watch": "npm test -- --watch",
     "start": "webpack-dev-server --progress --inline"
   },
@@ -41,7 +46,8 @@
     "babel-preset-stage-1": "^6.24.1",
     "babel-register": "^6.8.0",
     "chai": "^3.5.0",
-    "enzyme": "^2.3.0",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
     "eslint": "^3.11.0",
     "eslint-config-airbnb": "^14.1.0",
     "eslint-plugin-import": "^2.2.0",
