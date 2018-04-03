@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import Sector from './sector';
 import hsvToRgb from './hsvToRgb';
+import rgbToHsv from './rgbToHsv';
 
 class CircularColor extends PureComponent {
   static epsilon = 4;
@@ -9,7 +10,7 @@ class CircularColor extends PureComponent {
   constructor(props) {
     super(props);
 
-    const { size } = props;
+    const { size, color  } = props;
     const handlerSize = Math.floor(size / 2 * 0.3 / 2);
     const innerRadius = Math.floor(size / 2 * 0.6);
     const outerRadius = Math.floor(size / 2 * 0.9);
@@ -20,11 +21,13 @@ class CircularColor extends PureComponent {
       outerRadius
     };
 
+    const { h,s,v } = rgbToHsv(color);
+
     this.state = {
       touched: false,
-      cx: Math.floor((size / 2) + (innerRadius + handlerSize) * Math.cos(Math.PI)),
-      cy: Math.floor((size / 2) - (innerRadius + handlerSize) * Math.sin(Math.PI)),
-      color: hsvToRgb(Math.abs(Math.PI) * 180 / Math.PI)
+      cx: Math.floor((size / 2) + (innerRadius + handlerSize) * Math.cos((Math.PI*h)/180)),
+      cy: Math.floor((size / 2) - (innerRadius + handlerSize) * Math.sin((Math.PI*h)/180)),
+      color: color,
     }
   }
 
@@ -178,13 +181,15 @@ CircularColor.propTypes = {
   numberOfSectors: PropTypes.number,
   className: PropTypes.string,
   onChange: PropTypes.func,
-  centerRect: PropTypes.bool
+  centerRect: PropTypes.bool,
+  color: PropTypes.string
 };
 
 CircularColor.defaultProps = {
   size: 200,
   numberOfSectors: 360,
-  centerRect: false
+  centerRect: false,
+  color: '#f2ff00'
 };
 
 export default CircularColor;
