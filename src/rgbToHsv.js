@@ -41,7 +41,9 @@ export default (rgb) => {
     h *= 60; // degrees
     if (h < 0)
         h += 360;
+    
 
+    h = ( Math.PI * h ) / 180;
     return {
         h: h,
         s: s,

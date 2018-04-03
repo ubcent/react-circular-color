@@ -21,13 +21,13 @@ class CircularColor extends PureComponent {
       outerRadius
     };
 
-    const { h,s,v } = rgbToHsv(color);
+    const { h } = rgbToHsv(color);
 
     this.state = {
       touched: false,
-      cx: Math.floor((size / 2) + (innerRadius + handlerSize) * Math.cos((Math.PI*h)/180)),
-      cy: Math.floor((size / 2) - (innerRadius + handlerSize) * Math.sin((Math.PI*h)/180)),
-      color: color,
+      cx: Math.floor((size / 2) + (innerRadius + handlerSize) * Math.cos(h)),
+      cy: Math.floor((size / 2) - (innerRadius + handlerSize) * Math.sin(h)),
+      color,
     }
   }
 
@@ -189,7 +189,7 @@ CircularColor.defaultProps = {
   size: 200,
   numberOfSectors: 360,
   centerRect: false,
-  color: '#f2ff00'
+  color: '#f2ff00',
 };
 
 export default CircularColor;
