@@ -134,10 +134,45 @@ class CircularColor extends PureComponent {
     }
   }
 
+  renderRect({ color, x, y }) {
+    return (
+      <rect
+        x={x}
+        y={y}
+        height="30"
+        width="30"
+        fill={color}
+      />
+    );
+  }
+
+  renderHandle({ onHandleDown, cx, cy, handleRadius }) {
+    return (
+      <circle
+        onMouseDown={onHandleDown}
+        onTouchStart={onHandleDown}
+        cx={cx}
+        cy={cy}
+        r={handleRadius}
+        fill="transparent"
+        stroke="#363636"
+        strokeWidth="5"
+      />
+    );
+  }
+
   render() {
-    const { size, className, centerRect } = this.props;
+    const {
+      size,
+      className,
+      centerRect,
+      renderRect = this.renderRect,
+      renderHandle = this.renderHandle,
+    } = this.props;
     const { cx, cy, color } = this.state;
     const { handlerSize } = this.statics;
+
+    const rectX = this.props.size / 2 - 15, rectY = this.props.size / 2 - 15;
 
     return (
       <svg 
@@ -151,23 +186,8 @@ class CircularColor extends PureComponent {
         onClick={this.handleClick}
       >
         {this.renderSectors()}
-        {centerRect ? <rect 
-          x={size / 2 - 15}
-          y={size / 2 - 15}
-          height="30"
-          width="30"
-          fill={color}
-        />: ''}
-        <circle 
-          onMouseDown={this.handleDown}
-          onTouchStart={this.handleDown}
-          cx={cx} 
-          cy={cy} 
-          r={handlerSize}
-          fill="transparent"
-          stroke="#363636"
-          strokeWidth="5"
-        />
+        {centerRect ? renderRect({ color, x: rectX, y: rectY }): ''}
+        {renderHandle({ onHandleDown: this.handleDown, handleRadius: handlerSize, cx, cy })}
       </svg>
     )
   }
@@ -178,7 +198,10 @@ CircularColor.propTypes = {
   numberOfSectors: PropTypes.number,
   className: PropTypes.string,
   onChange: PropTypes.func,
-  centerRect: PropTypes.bool
+  centerRect: PropTypes.bool,
+
+  renderRect: PropTypes.func,
+  renderHandle: PropTypes.func,
 };
 
 CircularColor.defaultProps = {
