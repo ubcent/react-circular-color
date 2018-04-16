@@ -43,6 +43,7 @@ class ExampleComponent extends Component {
 | `onChange` | Fired when the color is changing |
 | `renderRect` | Use it to customize how the central rectangle with picked color is rendered. Function recieves one object with `color`, `x` & `y` keys |
 | `renderHandle` | Use it to customize how the circular color handle is rendered. Function recieves one object with `cx`, `cy`, `onHandleDown` & `handleRadius` keys |
+| `color` | String value of color. Default:`#f2ff00` |
 
 # Development
 
