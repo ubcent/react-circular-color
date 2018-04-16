@@ -41,6 +41,7 @@ class ExampleComponent extends Component {
 | `className` | Classes to apply to the svg element |
 | `centerRect` | Whether to display central rectangle with picked color. Default: `false`. |
 | `onChange` | Fired when the color is changing |
+| `color` | String value of color. Default:`#f2ff00` |
 
 # Development
 
