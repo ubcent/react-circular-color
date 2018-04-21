@@ -21,7 +21,7 @@ class CircularColor extends PureComponent {
       outerRadius
     };
 
-    const { h } = rgbToHsv(color);
+    const h  = rgbToHsv(color);
 
     this.state = {
       touched: false,
