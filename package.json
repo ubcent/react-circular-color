@@ -33,7 +33,7 @@
     "clean": "rimraf build",
     "lint": "eslint src test",
     "prepublish": "npm run clean && npm run build",
-    "test": "mocha --compilers js:babel-register --recursive",
+    "test": "nyc mocha --compilers js:babel-register --recursive",
     "test:watch": "npm test -- --watch",
     "start": "webpack-dev-server --progress --inline"
   },
@@ -55,6 +55,7 @@
     "eslint-plugin-react": "^6.0.0",
     "jsdom": "^9.0.0",
     "mocha": "^3.3.0",
+    "nyc": "^11.7.1",
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-addons-test-utils": "^15.0.2",
