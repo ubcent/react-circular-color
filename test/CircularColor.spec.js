@@ -40,6 +40,7 @@ describe('CircularProgressbar should', () => {
   it('fire onChange', (done) => {
     const component = new CircularColor({
       size: 36,
+      color: '#f2ff00',
       onChange: () => {
         done();
       } });
