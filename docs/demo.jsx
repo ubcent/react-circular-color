@@ -147,4 +147,4 @@ class Demo extends React.Component {
   }
 }
 
-ReactDOM.render(React.createElement(Demo), document.getElementById('demo'));
+ReactDOM.render(<Demo/>, document.getElementById('demo'));

@@ -2,10 +2,11 @@ import React from 'react';
 import { assert, expect } from 'chai';
 import Enzyme, { shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
+const jsdom = require('jsdom').jsdom;
+
 import CircularColor from '../src';
 
 Enzyme.configure({ adapter: new Adapter() });
-const jsdom = require('jsdom').jsdom;
 
 describe('CircularProgressbar should', () => {
   before(() => {
@@ -61,4 +62,11 @@ describe('CircularProgressbar should', () => {
     );
     expect(wrapper.find('Sector')).to.have.length(48);
   });
+  it('render svg with className', () => {
+    const wrapper = shallow(
+      <CircularColor className={'svg-class'} />
+    );
+    expect(wrapper.find('svg').filter('.svg-class')).to.have.length(1);
+  }
+  );
 });
