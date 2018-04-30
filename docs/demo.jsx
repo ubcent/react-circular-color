@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import CircularColor from '../src';
+import CustomizedHandle from './Customized/CustomizedHandle';
+import CustomizedRect from './Customized/CustomizedRect';
 
 console.log(`react-circular-color v${COMPONENT_VERSION}`);
 
@@ -114,6 +116,27 @@ class Demo extends React.Component {
           name="onChange"
           description="Fired when the color is changing."
         />
+        <hr />
+
+        <h2 className="text-xs-center my-3">Examples Custimzed Elements</h2>
+        <div class="row mt-3">
+        <Example
+          description="Customizing Handle"
+          >
+        <CustomizedHandle />
+        </Example>
+
+        <Example
+          description="Customizing Rect"
+          >
+        <CustomizedRect />
+
+        </Example>
+        </div>
+
+
+
+
 
         <hr />
         <div className="text-xs-center my-3">
