@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
+import { FC, ReactElement, useEffect, useState } from 'react';
 import Sector from './sector';
 import hsvToRgb from './hsvToRgb';
 import rgbToHsv from './rgbToHsv';
+import { CircularColorProps, RenderHandle, RenderReact } from './types';
 
-function CircularColor(props) {
+const CircularColor: FC<CircularColorProps> = (props): ReactElement => {
   const {
     size,
     numberOfSectors,
@@ -20,17 +20,17 @@ function CircularColor(props) {
   const innerRadius = Math.floor((size / 2) * 0.6);
   const outerRadius = Math.floor((size / 2) * 0.9);
 
-  const { h } = rgbToHsv(color);
+  const h: any = rgbToHsv(color)?.h;
 
   const [state, setState] = useState({
     touched: false,
-    // eslint-disable-next-line no-mixed-operators
+
     cx: Math.floor(size / 2 + (innerRadius + handlerSize) * Math.cos(h)),
-    // eslint-disable-next-line no-mixed-operators
+
     cy: Math.floor(size / 2 - (innerRadius + handlerSize) * Math.sin(h)),
     color,
   });
-  const preventScrolling = (event) => {
+  const preventScrolling = (event: Event): void => {
     const { touched } = state;
     if (touched) {
       event.preventDefault();
@@ -48,7 +48,6 @@ function CircularColor(props) {
           numberOfSectors;
         return (
           <Sector
-            // eslint-disable-next-line react/no-array-index-key
             key={idx}
             size={size}
             startAngle={-startAngle}
@@ -60,28 +59,22 @@ function CircularColor(props) {
       });
 
   useEffect(() => {
-    // eslint-disable-next-line no-undef
     window.addEventListener('touchmove', preventScrolling, {
       passive: false,
     });
-    // eslint-disable-next-line no-undef
     return window.removeEventListener('touchmove', preventScrolling);
   }, []);
-  const updateHandlerPosition = (angle) => {
-    // const { size, onChange } = props;
-    // const { innerRadius, handlerSize } = statics;
-
+  const updateHandlerPosition = (angle: number) => {
     const innerColor =
       angle <= 0
         ? (-angle * 180) / Math.PI
-        : // eslint-disable-next-line no-mixed-operators
-          ((2 * Math.PI - angle) * 180) / Math.PI;
+        : ((2 * Math.PI - angle) * 180) / Math.PI;
 
     setState({
       ...state,
-      // eslint-disable-next-line no-mixed-operators
+
       cx: Math.floor(size / 2 + (innerRadius + handlerSize) * Math.cos(angle)),
-      // eslint-disable-next-line no-mixed-operators
+
       cy: Math.floor(size / 2 - (innerRadius + handlerSize) * Math.sin(angle)),
       color: hsvToRgb(innerColor),
     });
@@ -91,13 +84,12 @@ function CircularColor(props) {
     }
   };
 
-  const handleClick = (event) => {
+  const handleClick = (event: any) => {
     const { x: xBlock, y: yBlock } =
       event.currentTarget.getBoundingClientRect();
 
-    // eslint-disable-next-line no-mixed-operators
     const x = event.clientX - xBlock - size / 2;
-    // eslint-disable-next-line no-mixed-operators
+
     const y = event.clientY - yBlock - size / 2;
 
     const angle = -Math.atan2(y, x);
@@ -130,7 +122,7 @@ function CircularColor(props) {
     });
   };
 
-  const handleMove = (event) => {
+  const handleMove = (event: any) => {
     const { touched } = state;
 
     if (touched) {
@@ -151,11 +143,8 @@ function CircularColor(props) {
   };
 
   const { cx, cy } = state;
-  // const { handlerSize } = statics;
 
-  // eslint-disable-next-line no-mixed-operators
   const rectX = props.size / 2 - 15;
-  // eslint-disable-next-line no-mixed-operators
   const rectY = props.size / 2 - 15;
   return (
     <svg
@@ -178,15 +167,13 @@ function CircularColor(props) {
       })}
     </svg>
   );
-}
+};
 
-// eslint-disable-next-line react/prop-types
-const renderRect = ({ color: colorValue, x, y }) => (
+const renderRect = ({ color: colorValue, x, y }: RenderReact) => (
   <rect x={x} y={y} height="30" width="30" fill={colorValue} />
 );
 
-// eslint-disable-next-line react/prop-types
-const renderHandle = ({ onHandleDown, cx, cy, handleRadius }) => (
+const renderHandle = ({ onHandleDown, cx, cy, handleRadius }: RenderHandle) => (
   <circle
     onMouseDown={onHandleDown}
     onTouchStart={onHandleDown}
@@ -198,17 +185,6 @@ const renderHandle = ({ onHandleDown, cx, cy, handleRadius }) => (
     strokeWidth="5"
   />
 );
-
-CircularColor.propTypes = {
-  size: PropTypes.number,
-  numberOfSectors: PropTypes.number,
-  className: PropTypes.string,
-  onChange: PropTypes.func,
-  centerRect: PropTypes.bool,
-  renderRect: PropTypes.func,
-  renderHandle: PropTypes.func,
-  color: PropTypes.string,
-};
 
 CircularColor.defaultProps = {
   size: 200,

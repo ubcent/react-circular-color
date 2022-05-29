@@ -1,3 +1,6 @@
+/* eslint-disable no-mixed-operators */
+/* eslint-disable no-multi-assign */
+/* eslint-disable no-param-reassign */
 /**
  * HSV to RGB color conversion
  *
@@ -7,10 +10,11 @@
  * Ported from the excellent java algorithm by Eugene Vishnevsky at:
  * http://www.cs.rit.edu/~ncs/color/t_convert.html
  */
-export default (h, s = 100, v = 100) => {
-  var r, g, b;
-  var i;
-  var f, p, q, t;
+
+export default (h: number, s = 100, v = 100) => {
+  let r;
+  let g;
+  let b;
 
   // Make sure our arguments stay in-range
   h = Math.max(0, Math.min(360, h));
@@ -24,7 +28,7 @@ export default (h, s = 100, v = 100) => {
   s /= 100;
   v /= 100;
 
-  if (s == 0) {
+  if (s === 0) {
     // Achromatic (grey)
     r = g = b = v;
     return `#${Math.round(r * 255)
@@ -37,11 +41,11 @@ export default (h, s = 100, v = 100) => {
   }
 
   h /= 60; // sector 0 to 5
-  i = Math.floor(h);
-  f = h - i; // factorial part of h
-  p = v * (1 - s);
-  q = v * (1 - s * f);
-  t = v * (1 - s * (1 - f));
+  const i = Math.floor(h);
+  const f = h - i; // factorial part of h
+  const p = v * (1 - s);
+  const q = v * (1 - s * f);
+  const t = v * (1 - s * (1 - f));
 
   switch (i) {
     case 0:

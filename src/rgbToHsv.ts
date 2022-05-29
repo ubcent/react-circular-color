@@ -7,28 +7,28 @@
  * Ported from the excellent java algorithm by Eugene Vishnevsky at:
  * http://www.cs.rit.edu/~ncs/color/t_convert.html
  */
-export default (rgb) => {
-  let result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(rgb);
+export default (rgb: string): { h: number; s: number; v: number } | null => {
+  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(rgb);
   if (!result) return null;
 
   const r = parseInt(result[1], 16) / 255;
   const g = parseInt(result[3], 16) / 255;
   const b = parseInt(result[2], 16) / 255;
 
-  const max = Math.max(r, g, b),
-    min = Math.min(r, g, b);
+  const max = Math.max(r, g, b);
+  const min = Math.min(r, g, b);
   const delta = max - min;
 
-  let s,
-    h,
-    v = max;
+  let s;
+  let h;
+  const v = max;
   if (max !== 0) {
     s = delta / max;
   } else {
     return {
       h: -1,
       s: 0,
-      v: v,
+      v,
     };
   }
 
@@ -41,8 +41,8 @@ export default (rgb) => {
 
   h = (Math.PI * h) / 180;
   return {
-    h: h,
-    s: s,
-    v: v,
+    h,
+    s,
+    v,
   };
 };
