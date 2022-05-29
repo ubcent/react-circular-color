@@ -1,10 +1,10 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import hsvToRgb from './hsvToRgb';
+import { SectorProps } from './types';
 
-function Sector(props) {
+function Sector(props: SectorProps) {
   const { startAngle, endAngle, outerRadius, innerRadius, size } = props;
-  const pointOnCircle = (radius, angle) => {
+  const pointOnCircle = (radius: number, angle: number) => {
     const center = {
       x: size / 2,
       y: size / 2,

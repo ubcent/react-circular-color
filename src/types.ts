@@ -12,6 +12,14 @@ export type CircularColorProps = {
   children: ReactElement[];
 };
 
+export type SectorProps = {
+  startAngle: number;
+  endAngle: number;
+  outerRadius: number;
+  innerRadius: number;
+  size: number;
+};
+
 export interface RenderReact {
   color: string;
   x: number;
