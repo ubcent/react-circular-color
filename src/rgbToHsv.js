@@ -8,45 +8,41 @@
  * http://www.cs.rit.edu/~ncs/color/t_convert.html
  */
 export default (rgb) => {
-    let result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(rgb);
-    if (!result)
-        return null
+  let result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(rgb);
+  if (!result) return null;
 
-    const r = parseInt(result[1], 16) / 255;
-    const g = parseInt(result[3], 16) / 255;
-    const b = parseInt(result[2], 16) / 255;
+  const r = parseInt(result[1], 16) / 255;
+  const g = parseInt(result[3], 16) / 255;
+  const b = parseInt(result[2], 16) / 255;
 
-    const max = Math.max(r, g, b),
-        min = Math.min(r, g, b);
-    const delta = max - min;
+  const max = Math.max(r, g, b),
+    min = Math.min(r, g, b);
+  const delta = max - min;
 
-    let s, h, v = max;
-    if (max !== 0) {
-        s = delta / max;
-    } else {
-        return {
-            h: -1,
-            s: 0,
-            v: v
-        }
-    }
-
-    if (r === max)
-        h = (g - b) / delta; // between yellow & magenta
-    else if (g === max)
-        h = 2 + (b - r) / delta; // between cyan & yellow
-    else
-        h = 4 + (r - g) / delta; // between magenta & cyan
-
-    h *= 60; // degrees
-    if (h < 0)
-        h += 360;
-    
-
-    h = ( Math.PI * h ) / 180;
+  let s,
+    h,
+    v = max;
+  if (max !== 0) {
+    s = delta / max;
+  } else {
     return {
-        h: h,
-        s: s,
-        v: v
-    }
-}
+      h: -1,
+      s: 0,
+      v: v,
+    };
+  }
+
+  if (r === max) h = (g - b) / delta; // between yellow & magenta
+  else if (g === max) h = 2 + (b - r) / delta; // between cyan & yellow
+  else h = 4 + (r - g) / delta; // between magenta & cyan
+
+  h *= 60; // degrees
+  if (h < 0) h += 360;
+
+  h = (Math.PI * h) / 180;
+  return {
+    h: h,
+    s: s,
+    v: v,
+  };
+};

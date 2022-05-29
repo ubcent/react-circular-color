@@ -4,7 +4,6 @@ import hsvToRgb from './hsvToRgb';
 
 function Sector(props) {
   const { startAngle, endAngle, outerRadius, innerRadius, size } = props;
-
   const pointOnCircle = (radius, angle) => {
     const center = {
       x: size / 2,

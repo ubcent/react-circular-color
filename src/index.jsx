@@ -28,6 +28,7 @@ function CircularColor(props) {
     cx: Math.floor(size / 2 + (innerRadius + handlerSize) * Math.cos(h)),
     // eslint-disable-next-line no-mixed-operators
     cy: Math.floor(size / 2 - (innerRadius + handlerSize) * Math.sin(h)),
+    color,
   });
   const preventScrolling = (event) => {
     const { touched } = state;
@@ -66,7 +67,6 @@ function CircularColor(props) {
     // eslint-disable-next-line no-undef
     return window.removeEventListener('touchmove', preventScrolling);
   }, []);
-
   const updateHandlerPosition = (angle) => {
     // const { size, onChange } = props;
     // const { innerRadius, handlerSize } = statics;
@@ -78,6 +78,7 @@ function CircularColor(props) {
           ((2 * Math.PI - angle) * 180) / Math.PI;
 
     setState({
+      ...state,
       // eslint-disable-next-line no-mixed-operators
       cx: Math.floor(size / 2 + (innerRadius + handlerSize) * Math.cos(angle)),
       // eslint-disable-next-line no-mixed-operators
@@ -117,12 +118,14 @@ function CircularColor(props) {
 
   const handleDown = () => {
     setState({
+      ...state,
       touched: true,
     });
   };
 
   const handleUp = () => {
     setState({
+      ...state,
       touched: false,
     });
   };
@@ -166,7 +169,7 @@ function CircularColor(props) {
       onClick={handleClick}
     >
       {renderSectors()}
-      {centerRect ? renderRect({ color, x: rectX, y: rectY }) : ''}
+      {centerRect ? renderRect({ color: state.color, x: rectX, y: rectY }) : ''}
       {renderHandle({
         onHandleDown: handleDown,
         handleRadius: handlerSize,
