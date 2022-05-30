@@ -1,15 +1,14 @@
 import { ReactElement } from 'react';
 
 export type CircularColorProps = {
-  size: number;
-  numberOfSectors: number;
-  className: string;
-  onChange: (v: string) => void;
-  centerRect: boolean;
-  renderRect: Function;
-  renderHandle: Function;
-  color: string;
-  children: ReactElement[];
+  size?: number;
+  numberOfSectors?: number;
+  className?: string;
+  onChange?: (v: string) => void;
+  centerRect?: boolean;
+  renderRect?: Function;
+  renderHandle?: Function;
+  color?: string;
 };
 
 export type SectorProps = {
