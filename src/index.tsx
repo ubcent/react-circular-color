@@ -4,7 +4,9 @@ import hsvToRgb from './hsvToRgb';
 import rgbToHsv from './rgbToHsv';
 import { CircularColorProps, RenderHandle, RenderReact } from './types';
 
-const CircularColor: FC<CircularColorProps> = (props): ReactElement => {
+const CircularColor: FC<CircularColorProps> = (
+  props: CircularColorProps
+): ReactElement => {
   const {
     size,
     numberOfSectors,

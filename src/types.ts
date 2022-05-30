@@ -13,6 +13,7 @@ export type CircularColorProps = {
 };
 
 export type SectorProps = {
+  key: number;
   startAngle: number;
   endAngle: number;
   outerRadius: number;
